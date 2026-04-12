@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-header">
+    <h2>My Notes</h2>
+    <a href="{% url 'note_create' %}" class="btn">+ New Note</a>
+</div>
+<p class="muted">All your notes are stored centrally and can be edited anytime.</p>
+<hr style="border-color:#1f2937; margin: 14px 0;">
+
+<style>
+    .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 10px;
+    }
+    .note-card {
+        background: linear-gradient(135deg, #ffffff, #f9fafb);
+        border-radius: 16px;
+        padding: 14px 16px 16px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 150px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .note-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 35px rgba(15, 23, 42, 0.14);
+    }
+    .note-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 6px;
+    }
+    .note-card-meta {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-bottom: 8px;
+    }
+    .note-card-content {
+        font-size: 0.85rem;
+        color: #111827;
+        margin: 0 0 10px;
+        line-height: 1.4;
+    }
+    .note-card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+    .note-card-footer .btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        flex: 1;
+        text-align: center;
+    }
+</style>
+
+{% if notes %}
+    <div class="notes-grid">
+        {% for note in notes %}
+            <div class="note-card">
+                <h3 class="note-card-title">{{ note.title }}</h3>
+                <div class="note-card-meta">
+                    {{ note.updated_at|date:"d M Y, H:i" }}
+                </div>
+                <p class="note-card-content">
+                    {{ note.content|truncatechars:120 }}
+                </p>
+                <div class="note-card-footer">
+                    <a href="{% url 'note_detail' note.pk %}" class="btn btn-secondary">Open</a>
+                    <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="muted">You don't have any notes yet. Click "New Note" to create your first one.</p>
+{% endif %}
+{% endblock %}

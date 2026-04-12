@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-header">
+    <h2>{{ title }}</h2>
+</div>
+<p class="muted">Write your note below. It will be saved securely in the cloud database.</p>
+
+<form method="post" style="margin-top:10px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Save</button>
+    <a href="{% url 'note_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
+

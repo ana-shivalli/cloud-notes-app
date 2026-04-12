@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-header">
+    <h2>Register</h2>
+</div>
+<p class="muted">Create an account to start using the cloud‑based notes application.</p>
+
+<form method="post" style="margin-top:10px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Sign Up</button>
+</form>
+
+<p style="margin-top:12px;" class="muted">
+    Already have an account?
+    <a href="{% url 'login' %}" class="link">Login here</a>.
+</p>
+{% endblock %}

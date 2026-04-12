@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-header">
+    <h2>Login</h2>
+</div>
+<p class="muted">Log in to access your personal notes from anywhere.</p>
+
+<form method="post" style="margin-top:10px;">
+    {% csrf_token %}
+    <p>
+        <label>Username</label>
+        <input type="text" name="username" required>
+    </p>
+    <p>
+        <label>Password</label>
+        <input type="password" name="password" required>
+    </p>
+    <button type="submit" class="btn">Login</button>
+</form>
+
+<p style="margin-top:12px;" class="muted">
+    Don’t have an account?
+    <a href="{% url 'register' %}" class="link">Register here</a>.
+</p>
+{% endblock %}

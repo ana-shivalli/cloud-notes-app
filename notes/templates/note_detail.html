@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-header">
+    <h2>View Note</h2>
+</div>
+
+<div style="border-radius:14px; border:1px solid #4c0707; padding:12px 14px; margin:10px 0; background:#ffffff; position:relative;">
+    <!-- Edit button inside note, at right top corner -->
+    <a href="{% url 'note_update' note.pk %}"
+       class="btn btn-secondary"
+       style="position:absolute; top:10px; right:10px; font-size:0.8rem;">
+       Edit
+    </a>
+
+    <div style="margin-right:80px;">  <!-- so text doesn't sit under the Edit button -->
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="margin:0 0 6px; font-size:1.1rem;">{{ note.title }}</h3>
+            <span class="muted" style="font-size:0.75rem;">
+                {{ note.updated_at|date:"d M Y, H:i" }}
+            </span>
+        </div>
+
+        <p style="margin-top:8px; font-size:0.95rem;">
+            {{ note.content|linebreaks }}
+        </p>
+    </div>
+</div>
+
+<div style="margin-top:10px;">
+    <a href="{% url 'note_list' %}" class="btn btn-secondary">Back to Notes</a>
+    <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger">Delete</a>
+</div>
+{% endblock %}
+
