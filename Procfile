@@ -1,0 +1,1 @@
+web: gunicorn ana_project.wsgi
